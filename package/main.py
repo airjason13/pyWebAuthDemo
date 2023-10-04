@@ -1,7 +1,7 @@
 # main.py
-
+import os
 from datetime import timedelta
-from flask import Blueprint, render_template, url_for, redirect, request, session
+from flask import Blueprint, render_template, url_for, redirect, request, session, send_from_directory
 from flask_login import login_required, current_user, logout_user
 from . import db
 from . import auth
@@ -17,8 +17,14 @@ def index():
 @login_required
 def profile():
 	print("profile")
-	return render_template('profile.html', name=current_user.name)
+	return render_template('profile.html', name=current_user.name, show_jpg_filename="CyberSecurity.jpg")
 
+
+@main.route('/get_thumbnail/<filename>')
+@login_required
+def route_get_thumbnail(filename):
+	print("os.getcwd :", os.getcwd())
+	return send_from_directory("/home/venom/Downloads", filename, as_attachment=True)
 
 @main.route('/reauth/', methods=('GET', 'POST'))
 def reauth():
@@ -29,7 +35,7 @@ def reauth():
 	if current_user is None:
 		print("current_user is None")
 		return render_template('profile.html', name="Bad guy!")
-	return render_template('profile.html', name=current_user.name)
+	return render_template('profile.html', name=current_user.name, show_jpg_filename="CyberSecurity.jpg")
 
 
 @main.route("/helloworld")
