@@ -66,22 +66,26 @@
 </h1>
     {% if current_user.is_authenticated %}
         Welcome, {{ name }}!
-        <form enctype="multipart/form-data" method="POST">
+        <div>
+            <form enctype="multipart/form-data" method="POST">
 
-              <div class="preview" style="float:left;background:#cccccc;height:320px;width:550px;text-align:center;z-index:1;">
-                  <p style="line-height: 300px;">未選擇任何檔案</p>
-                <br> </br>
+                  <div class="preview" style="float:left;background:#cccccc;height:320px;width:550px;text-align:center;z-index:1;">
+                      <p style="line-height: 300px;">未選擇任何檔案</p>
+                    <br> </br>
 
-              </div>
-              <div>
-                  <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg" style="float:left;" class="btn btn-primary" onchange="updateImageDisplay()">
-                <button id="uploadButton" type="submit" class="btn btn-primary" onclick="location.reload()">Upload</button>
-              </div>
+                  </div>
+                  <div style="float:left;">
+                      <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg"  class="btn btn-primary" onchange="updateImageDisplay()">
+                      <br><br>
+                      <button id="uploadButton" type="submit" class="btn btn-primary" onclick="location.reload()">Upload</button>
+                  </div>
 
-              <div class="modal-footer">
+
+            </form>
+        </div>
+        <div class="modal-footer">
                 <img src="./get_thumbnail/{{ show_jpg_filename }}"  style="height:320px;width:550px;">
-              </div>
-        </form>
+        </div>
     {% else %}
         You are logout!
     {% endif %}

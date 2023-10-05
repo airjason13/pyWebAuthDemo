@@ -24,7 +24,8 @@ def profile():
 @login_required
 def route_get_thumbnail(filename):
 	print("os.getcwd :", os.getcwd())
-	return send_from_directory("/home/venom/Downloads", filename, as_attachment=True)
+	material_path = os.getcwd() + "/package/static/material/"
+	return send_from_directory(material_path, filename, as_attachment=True)
 
 @main.route('/reauth/', methods=('GET', 'POST'))
 def reauth():
