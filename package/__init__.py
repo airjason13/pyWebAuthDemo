@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -9,6 +11,12 @@ def create_app():
 
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+
+    UPLOAD_FOLDER = os.getcwd() + "/data/"
+    ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
+
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 1024  # 1024MB
 
     db.init_app(app)
 

@@ -8,6 +8,7 @@ from . import auth
 main = Blueprint('main', __name__)
 
 
+
 @main.route('/')
 def index():
 	return render_template('index.html')
@@ -20,12 +21,24 @@ def profile():
 	return render_template('profile.html', name=current_user.name, show_jpg_filename="CyberSecurity.jpg")
 
 
+@main.route('/uploads/', methods=['POST'])
+@login_required
+def uploads():
+	print("request.files['file']", request.files['file'])
+	f = request.files['file']
+	UPLOAD_FOLDER = os.getcwd() + "/data/"
+	f.save(UPLOAD_FOLDER + "/" + f.filename)
+
+	return render_template('profile.html', name=current_user.name, show_jpg_filename=f.filename)
+
+
 @main.route('/get_thumbnail/<filename>')
 @login_required
 def route_get_thumbnail(filename):
 	print("os.getcwd :", os.getcwd())
 	material_path = os.getcwd() + "/package/static/material/"
 	return send_from_directory(material_path, filename, as_attachment=True)
+
 
 @main.route('/reauth/', methods=('GET', 'POST'))
 def reauth():

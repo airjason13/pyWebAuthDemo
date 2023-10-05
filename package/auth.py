@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from .models import User
 from . import db
+import os
 
 auth = Blueprint('auth', __name__)
 
@@ -69,8 +70,21 @@ def reauth():
     return jsonify(data)
     # return redirect(url_for('main.profile'))
 
+
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+'''
+@auth.route('/uploads', methods=['POST'])
+@login_required
+def uploads():
+    print("request.files['file']", request.files['file'])
+    f = request.files['file']
+    UPLOAD_FOLDER = os.getcwd() + "/data/"
+    f.save(UPLOAD_FOLDER + "/" + f.filename)
+    return redirect(url_for('main.index'))
+    # return render_template('profile.html', name=current_user.name, show_jpg_filename=f.filename)
+'''

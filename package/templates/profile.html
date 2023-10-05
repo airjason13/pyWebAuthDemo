@@ -67,7 +67,7 @@
     {% if current_user.is_authenticated %}
         Welcome, {{ name }}!
         <div>
-            <form enctype="multipart/form-data" method="POST">
+            <form enctype="multipart/form-data" action="uploads" method="POST">
 
                   <div class="preview" style="float:left;background:#cccccc;height:320px;width:550px;text-align:center;z-index:1;">
                       <p style="line-height: 300px;">未選擇任何檔案</p>
@@ -75,9 +75,9 @@
 
                   </div>
                   <div style="float:left;">
-                      <input type="file" id="image_uploads" name="image_uploads" accept=".jpg, .jpeg"  class="btn btn-primary" onchange="updateImageDisplay()">
+                      <input type="file" id="image_uploads" name="file" accept=".jpg, .jpeg"  class="btn btn-primary" onchange="updateImageDisplay()">
                       <br><br>
-                      <button id="uploadButton" type="submit" class="btn btn-primary" onclick="location.reload()">Upload</button>
+                      <button id="uploadButton" type="submit" class="btn btn-primary" onclick="location.reload()">Upload Image</button>
                   </div>
 
 
